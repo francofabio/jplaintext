@@ -1,4 +1,4 @@
 jplaintext
 ==========
 
-Library to serialize/deserializa java POJOs to plaintext
+Library to serialize/deserialize java POJOs to plaintext
