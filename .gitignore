@@ -1,6 +1,19 @@
+# Binary directories
+build/
+classes/
+bin/
+target/
+
 *.class
 
-# Package Files #
 *.jar
-*.war
 *.ear
+*.war
+
+# Eclipse project
+.settings/
+.classpath
+.project
+
+
+*.DS_Store
