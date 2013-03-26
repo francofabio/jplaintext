@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.github.francofabio.jplaintext.FieldMapper;
 
 public class EnumConverter implements Converter {
-
+	
 	@Override
 	public String asString(Object value, FieldMapper fieldMapper) {
 		String property = fieldMapper.getArguments().get("property");

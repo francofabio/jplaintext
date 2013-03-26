@@ -29,14 +29,14 @@ public class JPlainTextParseTest {
 		parser = new JPlainTextParse<Employee>(Employee.class);
 		parserDoctor = new JPlainTextParse<Doctor>(Doctor.class);
 		parserDeveloper = new JPlainTextParse<Developer>(Developer.class);
-		lineFull      = "Fabio Franco da Silva                   Omegasiste                    00000035000019830506";
-		lineEmpty     = "Fabio Franco da Silva                   Omegasiste                    000000350000        ";
-		lineDoctor    = "Fabio Franco da Silva                   Omegasiste                    00000100000019830506Segunda-feira  07";
-		lineDeveloper = "Fabio Franco da Silva                   Omegasiste                    00000035000019830506445e6578-1ec7-460d-9031-e19ea5a2275aJava      Python    http://www.google.com.br                                                                                                                                                                                                                   29153040";
+		lineFull      = "Fake Name For Example                   Binartecno                    00000035000019830506";
+		lineEmpty     = "Fake Name For Example                   Binartecno                    000000350000        ";
+		lineDoctor    = "Fake Name For Example                   Binartecno                    00000100000019830506Segunda-feira  07";
+		lineDeveloper = "Fake Name For Example                   Binartecno                    00000035000019830506445e6578-1ec7-460d-9031-e19ea5a2275aJava      Python    http://www.google.com.br                                                                                                                                                                                                                   29153040";
 
-		String lines  = "Fabio Franco da Silva                   Omegasiste                    00000035000019830506\r\n"
-				      + "Luana Vicente Alvim da Silva            Omega                         00000055000019860612\r\n"
-				      + "Luana Vicente Alvim da Silva            Omega                         00000055000019860612";
+		String lines  = "Fake Name For Example                   Binartecno                    00000035000019830506\r\n"
+				      + "Fake Name For Example Female            Binar                         00000055000019860612\r\n"
+				      + "Fake Name For Example Female            Binar                         00000055000019860612";
 		input = new ByteArrayInputStream(lines.getBytes());
 	}
 
@@ -44,7 +44,7 @@ public class JPlainTextParseTest {
 	public void shouldParseStringField() {
 		Employee employee = parser.parseText(lineEmpty);
 
-		assertEquals("Fabio Franco da Silva", employee.getName());
+		assertEquals("Fake Name For Example", employee.getName());
 	}
 
 	@Test
@@ -69,8 +69,8 @@ public class JPlainTextParseTest {
 
 		Employee employee = parser.parseText(lineFull);
 
-		assertEquals("Fabio Franco da Silva", employee.getName());
-		assertEquals("Omegasiste", employee.getOrganization());
+		assertEquals("Fake Name For Example", employee.getName());
+		assertEquals("Binartecno", employee.getOrganization());
 		assertEquals(3500.00, employee.getSalary(), 0);
 		assertEquals(expectedBirth, employee.getDateOfBirth());
 	}
@@ -81,8 +81,8 @@ public class JPlainTextParseTest {
 
 		Doctor doctor = parserDoctor.parseText(lineDoctor);
 
-		assertEquals("Fabio Franco da Silva", doctor.getName());
-		assertEquals("Omegasiste", doctor.getOrganization());
+		assertEquals("Fake Name For Example", doctor.getName());
+		assertEquals("Binartecno", doctor.getOrganization());
 		assertEquals(10000.00, doctor.getSalary(), 0);
 		assertEquals(expectedBirth, doctor.getDateOfBirth());
 		assertEquals("Segunda-feira", doctor.getScale().getDayOfWeek());
@@ -95,8 +95,8 @@ public class JPlainTextParseTest {
 
 		Developer developer = parserDeveloper.parseText(lineDeveloper);
 
-		assertEquals("Fabio Franco da Silva", developer.getName());
-		assertEquals("Omegasiste", developer.getOrganization());
+		assertEquals("Fake Name For Example", developer.getName());
+		assertEquals("Binartecno", developer.getOrganization());
 		assertEquals(3500.00, developer.getSalary(), 0);
 		assertEquals(expectedBirth, developer.getDateOfBirth());
 		assertEquals("445e6578-1ec7-460d-9031-e19ea5a2275a", developer.getUid());
@@ -108,8 +108,8 @@ public class JPlainTextParseTest {
 
 		Developer developer = parserDeveloper.parseText(lineDeveloper);
 
-		assertEquals("Fabio Franco da Silva", developer.getName());
-		assertEquals("Omegasiste", developer.getOrganization());
+		assertEquals("Fake Name For Example", developer.getName());
+		assertEquals("Binartecno", developer.getOrganization());
 		assertEquals(3500.00, developer.getSalary(), 0);
 		assertEquals(expectedBirth, developer.getDateOfBirth());
 		assertEquals("445e6578-1ec7-460d-9031-e19ea5a2275a", developer.getUid());
@@ -121,27 +121,27 @@ public class JPlainTextParseTest {
 	public void parseLineInvalidSize() {
 		Employee employee = parser.parseText(lineEmpty + "aaaaa");
 
-		assertEquals("Fabio Franco da Silva", employee.getName());
-		assertEquals("Omegasiste", employee.getOrganization());
+		assertEquals("Fake Name For Example", employee.getName());
+		assertEquals("Binartecno", employee.getOrganization());
 		assertEquals(3500.00, employee.getSalary(), 0);
 	}
 
 	@Test(expected = ValidationsException.class)
 	public void shouldParseLineRequiredField() {
-		final String linha = "                                        Omegasiste                    000000350000                  ";
+		final String linha = "                                        Binartecno                    000000350000                  ";
 		Employee employee = parser.parseText(linha);
 
-		assertEquals("Fabio Franco da Silva", employee.getName());
-		assertEquals("Omegasiste", employee.getOrganization());
+		assertEquals("Fake Name For Example", employee.getName());
+		assertEquals("Binartecno", employee.getOrganization());
 		assertEquals(3500.00, employee.getSalary(), 0);
 	}
 
 	@Test
 	public void shouldParseFile() throws Exception {
 		final Object[][] expectedValues = new Object[][] {
-				{ "Fabio Franco da Silva", "Omegasiste", new Double(3500.00), parseDate("06/05/1983", "dd/MM/yyyy") },
-				{ "Luana Vicente Alvim da Silva", "Omega", new Double(5500.00), parseDate("12/06/1986", "dd/MM/yyyy") },
-				{ "Luana Vicente Alvim da Silva", "Omega", new Double(5500.00), parseDate("12/06/1986", "dd/MM/yyyy") } };
+				{ "Fake Name For Example", "Binartecno", new Double(3500.00), parseDate("06/05/1983", "dd/MM/yyyy") },
+				{ "Fake Name For Example Female", "Binar", new Double(5500.00), parseDate("12/06/1986", "dd/MM/yyyy") },
+				{ "Fake Name For Example Female", "Binar", new Double(5500.00), parseDate("12/06/1986", "dd/MM/yyyy") } };
 		final List<Employee> records = parser.parseFile(input);
 
 		assertEquals(3, records.size());

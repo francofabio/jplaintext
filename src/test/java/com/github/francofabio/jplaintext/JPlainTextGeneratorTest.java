@@ -34,20 +34,20 @@ public class JPlainTextGeneratorTest {
 	@Test
 	public void shouldGenerateTextPojo() {
 		Person person = new Person();
-		person.setName("Fabio Franco da Silva");
+		person.setName("Fake Name For Example");
 
 		String text = personGenerator.generateText(person);
 
 		assertEquals(40, text.length());
-		assertEquals("Fabio Franco da Silva                   ", text);
+		assertEquals("Fake Name For Example                   ", text);
 	}
 
 	@Test
 	public void shouldGenerateTextPojoWithInheritance() throws Exception {
-		final String expected = "Fabio Franco da Silva                   Omegasiste                    00000035000019830506";
+		final String expected = "Fake Name For Example                   Binartecno                    00000035000019830506";
 		Employee employee = new Employee();
-		employee.setName("Fabio Franco da Silva");
-		employee.setOrganization("Omegasiste");
+		employee.setName("Fake Name For Example");
+		employee.setOrganization("Binartecno");
 		employee.setSalary(3500.00);
 		employee.setDateOfBirth(DateUtils.parseDate("06/05/1983", "dd/MM/yyyy"));
 
@@ -59,8 +59,8 @@ public class JPlainTextGeneratorTest {
 
 	@Test
 	public void shouldGenerateTextWithEmbeddedFields() throws Exception {
-		final String expected = "Fabio Franco da Silva                   Omegasiste                    00000100000019830506Segunda-feira  07";
-		Doctor doctor = new Doctor("Fabio Franco da Silva", "Omegasiste", 10000.00, DateUtils.parseDate("06/05/1983",
+		final String expected = "Fake Name For Example                   Binartecno                    00000100000019830506Segunda-feira  07";
+		Doctor doctor = new Doctor("Fake Name For Example", "Binartecno", 10000.00, DateUtils.parseDate("06/05/1983",
 				"dd/MM/yyyy"), new DoctorScale("Segunda-feira", "07"));
 
 		String text = doctorGenerator.generateText(doctor);
@@ -71,10 +71,10 @@ public class JPlainTextGeneratorTest {
 
 	@Test
 	public void shouldGenerateTextWithReadOnlyFields() throws Exception {
-		final String expected = "Fabio Franco da Silva                   Omegasiste                    00000035000019830506445e6578-1ec7-460d-9031-e19ea5a2275aJava      Python    http://www.google.com.br                                                                            Static                                                                                                                                 29153040";
+		final String expected = "Fake Name For Example                   Binartecno                    00000035000019830506445e6578-1ec7-460d-9031-e19ea5a2275aJava      Python    http://www.google.com.br                                                                            Static                                                                                                                                 29153040";
 		Developer developer = new Developer("445e6578-1ec7-460d-9031-e19ea5a2275a",
-				"Fabio Franco da Silva",
-				"Omegasiste",
+				"Fake Name For Example",
+				"Binartecno",
 				3500.00,
 				DateUtils.parseDate("06/05/1983", "dd/MM/yyyy"),
 				new DeveloperLanguage("Java", "Python"),
@@ -90,11 +90,11 @@ public class JPlainTextGeneratorTest {
 
 	@Test
 	public void shouldGenerateTextForOutputStream() throws Exception {
-		final String expected = "Fabio Franco da Silva                   Omegasiste                    00000035000019830506"
+		final String expected = "Fake Name For Example                   Binartecno                    00000035000019830506"
 				+ NEW_LINE;
 		Employee employee = new Employee();
-		employee.setName("Fabio Franco da Silva");
-		employee.setOrganization("Omegasiste");
+		employee.setName("Fake Name For Example");
+		employee.setOrganization("Binartecno");
 		employee.setSalary(3500.00);
 		employee.setDateOfBirth(DateUtils.parseDate("06/05/1983", "dd/MM/yyyy"));
 
@@ -108,11 +108,11 @@ public class JPlainTextGeneratorTest {
 
 	@Test
 	public void shouldGenerateTextForWriter() throws Exception {
-		final String expected = "Fabio Franco da Silva                   Omegasiste                    00000035000019830506"
+		final String expected = "Fake Name For Example                   Binartecno                    00000035000019830506"
 				+ NEW_LINE;
 		Employee employee = new Employee();
-		employee.setName("Fabio Franco da Silva");
-		employee.setOrganization("Omegasiste");
+		employee.setName("Fake Name For Example");
+		employee.setOrganization("Binartecno");
 		employee.setSalary(3500.00);
 		employee.setDateOfBirth(DateUtils.parseDate("06/05/1983", "dd/MM/yyyy"));
 
@@ -128,17 +128,17 @@ public class JPlainTextGeneratorTest {
 
 	@Test
 	public void shouldGenerateTextFromList() throws Exception {
-		final String expected = "Fabio Franco da Silva                   Omegasiste                    00000035000019830506"
+		final String expected = "Fake Name For Example                   Binartecno                    00000035000019830506"
 				+ NEW_LINE
-				+ "Luana Vicente Alvim da Silva            Omega                         00000055000019860612"
+				+ "Fake Name For Example Female            Binar                         00000055000019860612"
 				+ NEW_LINE;
 
-		Employee employee1 = new Employee("Fabio Franco da Silva",
-				"Omegasiste",
+		Employee employee1 = new Employee("Fake Name For Example",
+				"Binartecno",
 				3500.00,
 				DateUtils.parseDate("06/05/1983", "dd/MM/yyyy"));
-		Employee employee2 = new Employee("Luana Vicente Alvim da Silva",
-				"Omega",
+		Employee employee2 = new Employee("Fake Name For Example Female",
+				"Binar",
 				5500.00,
 				DateUtils.parseDate("12/06/1986", "dd/MM/yyyy"));
 
@@ -152,17 +152,17 @@ public class JPlainTextGeneratorTest {
 
 	@Test
 	public void shouldGenerateTextFromListForOutputStream() throws Exception {
-		final String expected = "Fabio Franco da Silva                   Omegasiste                    00000035000019830506"
+		final String expected = "Fake Name For Example                   Binartecno                    00000035000019830506"
 				+ NEW_LINE
-				+ "Luana Vicente Alvim da Silva            Omega                         00000055000019860612"
+				+ "Fake Name For Example Female            Binar                         00000055000019860612"
 				+ NEW_LINE;
 
-		Employee employee1 = new Employee("Fabio Franco da Silva",
-				"Omegasiste",
+		Employee employee1 = new Employee("Fake Name For Example",
+				"Binartecno",
 				3500.00,
 				DateUtils.parseDate("06/05/1983", "dd/MM/yyyy"));
-		Employee employee2 = new Employee("Luana Vicente Alvim da Silva",
-				"Omega",
+		Employee employee2 = new Employee("Fake Name For Example Female",
+				"Binar",
 				5500.00,
 				DateUtils.parseDate("12/06/1986", "dd/MM/yyyy"));
 
@@ -180,16 +180,16 @@ public class JPlainTextGeneratorTest {
 
 	@Test
 	public void shouldGenerateTextFromListForWriter() throws Exception {
-		final String expected = "Fabio Franco da Silva                   Omegasiste                    00000035000019830506"
+		final String expected = "Fake Name For Example                   Binartecno                    00000035000019830506"
 				+ NEW_LINE
-				+ "Luana Vicente Alvim da Silva            Omega                         00000055000019860612"
+				+ "Fake Name For Example Female            Binar                         00000055000019860612"
 				+ NEW_LINE;
-		Employee employee1 = new Employee("Fabio Franco da Silva",
-				"Omegasiste",
+		Employee employee1 = new Employee("Fake Name For Example",
+				"Binartecno",
 				3500.00,
 				DateUtils.parseDate("06/05/1983", "dd/MM/yyyy"));
-		Employee employee2 = new Employee("Luana Vicente Alvim da Silva",
-				"Omega",
+		Employee employee2 = new Employee("Fake Name For Example Female",
+				"Binar",
 				5500.00,
 				DateUtils.parseDate("12/06/1986", "dd/MM/yyyy"));
 		List<Employee> employees = Arrays.asList(employee1, employee2);

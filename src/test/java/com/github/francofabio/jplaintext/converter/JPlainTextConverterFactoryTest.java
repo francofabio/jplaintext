@@ -261,8 +261,8 @@ public class JPlainTextConverterFactoryTest {
 
 	@Test
 	public void shouldConvertString() {
-		final String linePart = "Fabio Franco da Silva                   ";
-		final String expected = "Fabio Franco da Silva";
+		final String linePart = "Fake Name For Example                   ";
+		final String expected = "Fake Name For Example";
 		final FieldMapper fieldMapper = new FieldMapper(1, 1, 40, null, true, false, String.class, null, 0);
 
 		Converter converter = JPlainTextConverterFactory.getConverter(String.class);

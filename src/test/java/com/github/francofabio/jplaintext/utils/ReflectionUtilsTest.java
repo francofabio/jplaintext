@@ -99,7 +99,7 @@ public class ReflectionUtilsTest {
 	
 	@Test
 	public void shouldSetInheritedFieldValue() {
-		final String expectedName = "Fabio Franco da Silva";
+		final String expectedName = "Fake Name For Example";
 		Developer developer = new Developer();
 		ReflectionUtils.setFieldValue(developer, "name", expectedName);
 
@@ -108,7 +108,7 @@ public class ReflectionUtilsTest {
 	
 	@Test
 	public void shouldGetPropertyValue() {
-		final String expectedName = "Fabio Franco da Silva";
+		final String expectedName = "Fake Name For Example";
 		Developer developer = new Developer();
 		developer.setName(expectedName);
 
@@ -118,7 +118,7 @@ public class ReflectionUtilsTest {
 	
 	@Test
 	public void shouldGetNestedPropertyValue() {
-		final String expectedName = "Fabio Franco da Silva";
+		final String expectedName = "Fake Name For Example";
 		Developer developer = new Developer();
 		developer.setName(expectedName);
 		developer.setAddress(new Address());

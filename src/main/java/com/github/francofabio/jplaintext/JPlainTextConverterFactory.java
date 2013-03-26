@@ -1,8 +1,7 @@
 package com.github.francofabio.jplaintext;
 
-import java.util.Comparator;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.github.francofabio.jplaintext.convert.ByteConverter;
 import com.github.francofabio.jplaintext.convert.CharacterConverter;
@@ -19,10 +18,10 @@ import com.github.francofabio.jplaintext.convert.StringConverter;
 
 public class JPlainTextConverterFactory {
 
-	private static final SortedSet<Converter> convertersRegistered;
+	private static final List<Converter> convertersRegistered;
 
 	static {
-		convertersRegistered = new TreeSet<Converter>(new ConverterComparator());
+		convertersRegistered = new ArrayList<Converter>();
 
 		// Register default converters
 		registerConverter(new ByteConverter());
@@ -55,20 +54,12 @@ public class JPlainTextConverterFactory {
 	}
 
 	public static void registerConverter(Converter converter) {
-		convertersRegistered.add(converter);
+		//Add converter on begin of list, for use always the last registered
+		convertersRegistered.add(0, converter);
 	}
 
 	public static boolean supported(Class<?> cls) {
 		return converterFor(cls) != null;
-	}
-
-	private static class ConverterComparator implements Comparator<Converter> {
-
-		@Override
-		public int compare(Converter o1, Converter o2) {
-			return o1.getClass().getName().compareTo(o2.getClass().getName());
-		}
-
 	}
 
 }
