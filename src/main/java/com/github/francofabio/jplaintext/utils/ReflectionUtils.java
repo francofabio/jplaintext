@@ -14,6 +14,8 @@ import com.github.francofabio.jplaintext.JPlainTextException;
 @SuppressWarnings("rawtypes")
 public final class ReflectionUtils {
 
+	private final static String CLASS_FIELD = "class"; 
+	
 	public static List<Field> fields(Class cls) {
 		final List<Field> fields = new ArrayList<Field>();
 		final PropertyDescriptor[] propertyDescriptors = PropertyUtils.getPropertyDescriptors(cls);
@@ -21,9 +23,12 @@ public final class ReflectionUtils {
 		for (PropertyDescriptor descriptor : propertyDescriptors) {
 			Class declaringClass = descriptor.getReadMethod().getDeclaringClass();
 			String fieldName = descriptor.getName();
-			if (!fieldName.equals("class")) {
+			if (!fieldName.equals(CLASS_FIELD)) {
 				try {
 					fields.add(declaringClass.getDeclaredField(fieldName));
+				} catch (NoSuchFieldException e) {
+					//Whether field not found, assume that is a method and ignore this exception
+					continue;
 				} catch (Exception e) {
 					throw new JPlainTextException("Error getting fields", e);
 				}
