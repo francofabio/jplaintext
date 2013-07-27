@@ -12,14 +12,14 @@ public class PlainTextUtils {
 
 	public static String leftPad(String str, int size, char pad) {
 		if (str != null && str.length() > size) {
-			return str.substring(str.length() - size);
+			return StringUtils.right(str, size);
 		}
 		return StringUtils.leftPad(str, size, pad);
 	}
 
 	public static String rightPad(String str, int size, char pad) {
 		if (str != null && str.length() > size) {
-			return str.substring(0, str.length() - (str.length() - size));
+			return StringUtils.left(str, size);
 		}
 		return StringUtils.rightPad(str, size, pad);
 	}
