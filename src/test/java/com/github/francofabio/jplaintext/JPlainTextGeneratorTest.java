@@ -17,6 +17,7 @@ import com.github.francofabio.jplaintext.JPlainTextGenerator;
 public class JPlainTextGeneratorTest {
 
 	private static final String NEW_LINE = System.getProperty("line.separator");
+	private static final String WINDOWS_LINE_SEPARATOR = "\r\n";
 
 	private JPlainTextGenerator<Person> personGenerator;
 	private JPlainTextGenerator<Employee> employeeGenerator;
@@ -171,6 +172,35 @@ public class JPlainTextGeneratorTest {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 
 		employeeGenerator.generateText(employees, output);
+
+		output.flush();
+
+		assertEquals(expected.length(), output.size());
+		assertEquals(expected, output.toString());
+	}
+	
+	@Test
+	public void shouldGenerateTextFromListForOutputStreamWithLineSeparator() throws Exception {
+		final String expected = "Fake Name For Example                   Binartecno                    00000035000019830506"
+				+ WINDOWS_LINE_SEPARATOR
+				+ "Fake Name For Example Female            Binar                         00000055000019860612"
+				+ WINDOWS_LINE_SEPARATOR;
+
+		Employee employee1 = new Employee("Fake Name For Example",
+				"Binartecno",
+				3500.00,
+				DateUtils.parseDate("06/05/1983", "dd/MM/yyyy"));
+		Employee employee2 = new Employee("Fake Name For Example Female",
+				"Binar",
+				5500.00,
+				DateUtils.parseDate("12/06/1986", "dd/MM/yyyy"));
+
+		List<Employee> employees = Arrays.asList(employee1, employee2);
+
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+		JPlainTextGenerator<Employee> plainTextGenerator = new JPlainTextGenerator<Employee>(Employee.class, WINDOWS_LINE_SEPARATOR);
+		plainTextGenerator.generateText(employees, output);
 
 		output.flush();
 

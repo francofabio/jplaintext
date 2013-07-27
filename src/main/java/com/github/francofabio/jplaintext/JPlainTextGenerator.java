@@ -14,14 +14,19 @@ import com.github.francofabio.jplaintext.convert.Converter;
 import com.github.francofabio.jplaintext.utils.ReflectionUtils;
 
 public class JPlainTextGenerator<T> {
-	private static final String newLine = System.getProperty("line.separator");
 
 	private final Class<T> cls;
 	private JPlainTextMapper mapper;
+	private String newLine;
 
-	public JPlainTextGenerator(Class<T> clazz) {
+	public JPlainTextGenerator(Class<T> clazz, String lineSeparator) {
 		this.cls = clazz;
 		this.mapper = new JPlainTextMapper(cls);
+		this.newLine = lineSeparator;
+	}
+	
+	public JPlainTextGenerator(Class<T> clazz) {
+		this(clazz, System.getProperty("line.separator"));
 	}
 
 	private String generateTextField(T o, NamedTreeNode node) throws Exception {

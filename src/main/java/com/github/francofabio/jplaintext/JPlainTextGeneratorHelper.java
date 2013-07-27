@@ -26,9 +26,19 @@ public final class JPlainTextGeneratorHelper {
 		JPlainTextGenerator<T> generator = new JPlainTextGenerator<T>(cls);
 		return generator.generateText(collection);
 	}
+	
+	public static <T> String generateText(Collection<T> collection, Class<T> cls, String lineSeparator) {
+		JPlainTextGenerator<T> generator = new JPlainTextGenerator<T>(cls, lineSeparator);
+		return generator.generateText(collection);
+	}
 
 	public static <T> void generateText(Collection<T> collection, OutputStream output, Class<T> cls) throws IOException {
 		JPlainTextGenerator<T> generator = new JPlainTextGenerator<T>(cls);
+		generator.generateText(collection, output);
+	}
+	
+	public static <T> void generateText(Collection<T> collection, OutputStream output, Class<T> cls, String lineSeparator) throws IOException {
+		JPlainTextGenerator<T> generator = new JPlainTextGenerator<T>(cls, lineSeparator);
 		generator.generateText(collection, output);
 	}
 
@@ -36,4 +46,10 @@ public final class JPlainTextGeneratorHelper {
 		JPlainTextGenerator<T> generator = new JPlainTextGenerator<T>(cls);
 		generator.generateText(collection, writer);
 	}
+	
+	public static <T> void generateText(Collection<T> collection, Writer writer, Class<T> cls, String lineSeparator) throws IOException {
+		JPlainTextGenerator<T> generator = new JPlainTextGenerator<T>(cls, lineSeparator);
+		generator.generateText(collection, writer);
+	}
+	
 }
