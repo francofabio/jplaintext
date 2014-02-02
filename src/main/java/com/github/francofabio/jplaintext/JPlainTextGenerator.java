@@ -9,6 +9,7 @@ import java.io.Writer;
 import java.util.Collection;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.github.francofabio.jplaintext.convert.Converter;
 import com.github.francofabio.jplaintext.utils.ReflectionUtils;
@@ -55,8 +56,8 @@ public class JPlainTextGenerator<T> {
 				String value = generateTextField(o, child);
 				text.append(value);
 			} catch (Exception e) {
-				throw new JPlainTextException(String.format("Error while generate value for property %s",
-						child.getPath()), e);
+				throw new JPlainTextException(String.format("Error while generate value for property %s of class %s. [%s]",
+						child.getPath(), o.getClass(), ToStringBuilder.reflectionToString(o)), e);
 			}
 		}
 		// Check fill space
