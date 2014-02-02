@@ -20,6 +20,10 @@ public class IntegerConverter implements Converter {
 
 	@Override
 	public Object asObject(String value, FieldMapper fieldMapper) {
+		value = (value == null) ? "" : value.trim();
+		if (value.isEmpty()) {
+			value = "0";
+		}
 		return new Integer(value);
 	}
 
