@@ -24,8 +24,8 @@ import com.github.francofabio.jplaintext.utils.ReflectionUtils;
 
 public class JPlainTextParseRule {
 
-	private final String newLineSeparator = System.getProperty("line.separator"); 
-	
+	private final String newLineSeparator = System.getProperty("line.separator");
+
 	private final List<PlainTextCondition> ruleMap;
 	private final Map<String, ParseRule> rules;
 	private final Map<String, Object> lastInstance;
@@ -50,7 +50,7 @@ public class JPlainTextParseRule {
 	public int getMaxProgress() {
 		return maxProgress;
 	}
-	
+
 	public void addListener(PlainTextParseRuleListener listener) {
 		listeners.add(listener);
 	}
@@ -214,37 +214,41 @@ public class JPlainTextParseRule {
 	public void parse(InputStream input) throws IOException, PlainTextValidationsErrors {
 		final byte[] inputBuffer = IOUtils.toByteArray(input);
 		final int streamSize = inputBuffer.length;
-		
+
 		BufferedReader reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(inputBuffer)));
 		PlainTextValidationsErrors validationsErrors = new PlainTextValidationsErrors();
 		String line;
 		int currentLineNumber = 1;
 		int bytesRead = 0;
-		
+
 		while ((line = reader.readLine()) != null) {
 			variables.put("currentLine", line);
 			variables.put("currentLineNumber", currentLineNumber);
-			
+
 			PlainTextCondition condition = satisfiedBy(line);
 			if (condition != null) {
-				String rule = condition.getAlias();
+				try {
+					String rule = condition.getAlias();
 
-				incrementCounter(rule);
+					incrementCounter(rule);
 
-				validationsErrors.addErrors(validateExprs(rule, line));
+					validationsErrors.addErrors(validateExprs(rule, line));
 
-				Object o = JPlainTextParseHelper.parseText(line, condition.getClazz());
+					Object o = JPlainTextParseHelper.parseText(line, condition.getClazz());
 
-				this.lastInstance.put(rule, o);
+					this.lastInstance.put(rule, o);
 
-				fireRule(rules.get(rule), o);
+					fireRule(rules.get(rule), o);
+				} catch (Throwable e) {
+					throw new JPlainTextException("Error parse line " + currentLineNumber, e);
+				}
 			}
 
 			currentLineNumber++;
-			
-			//Number of processed bytes
+
+			// Number of processed bytes
 			bytesRead += line.length() + newLineSeparator.length();
-			
+
 			fireProgress(bytesRead, streamSize);
 		}
 		validationsErrors.addErrors(validateMinAndMax());
