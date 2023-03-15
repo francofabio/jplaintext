@@ -15,7 +15,7 @@ public class StringValidator implements Validator {
 		}
 		if (!StringUtils.isBlank(fieldMapper.getFormat())) {
 			if (StringUtils.repeat('0', fieldMapper.getFormat().length()).equals(fieldMapper.getFormat())) {
-				if (!StringUtils.isNumeric(value)) {
+				if (StringUtils.isNotBlank(value) && !StringUtils.isNumeric(value)) {
 					throw new ValidationException("Field '" + fieldMapper.getField() + "'. '" + value
 							+ "' can not be represented as a number");
 				}
